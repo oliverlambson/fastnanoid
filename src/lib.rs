@@ -25,3 +25,31 @@ fn rs_nanoid(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(generate, m)?)?;
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        pyo3::prepare_freethreaded_python();
+        Python::with_gil(|py| {
+            assert_eq!(generate(None, None).unwrap().chars().count(), 21);
+            assert_eq!(generate(None, Some(11)).unwrap().chars().count(), 11);
+            assert_eq!(
+                generate(Some(PyString::new_bound(py, "asdf🌍")), None)
+                    .unwrap()
+                    .chars()
+                    .count(),
+                21
+            );
+            assert_eq!(
+                generate(Some(PyString::new_bound(py, "asdf🌍")), Some(11))
+                    .unwrap()
+                    .chars()
+                    .count(),
+                11
+            );
+        });
+    }
+}
