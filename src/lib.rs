@@ -21,6 +21,7 @@ fn generate(alphabet: Option<Bound<PyString>>, size: Option<usize>) -> PyResult<
 }
 
 #[pymodule]
+#[pyo3(name = "fastnanoid")]
 fn fastnanoid(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(generate, m)?)?;
     Ok(())
