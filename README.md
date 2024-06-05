@@ -1,6 +1,6 @@
-# rs-nanoid
+# fastnanoid
 
-rs-nanoid is a tiny, secure URL-friendly unique string ID generator for Python, written in Rust.
+fastnanoid is a tiny, secure URL-friendly unique string ID generator for Python, written in Rust.
 
 ## Contributing
 
@@ -11,7 +11,7 @@ source .venv/bin/activate
 pip install maturin
 # build and use
 maturin develop
-python -c 'import rs_nanoid; print(rs_nanoid.generate())'
+python -c 'import fastnanoid; print(fastnanoid.generate())'
 # test
 cargo test
 ```
