@@ -9,7 +9,7 @@ It works as a drop in replacement for [py-nanoid](https://github.com/puyuan/py-n
 + from fastnanoid import generate
 ```
 
-It's 2.1x faster than the original.
+It's 2.7x faster than the original.
 
 ## Contributing
 
