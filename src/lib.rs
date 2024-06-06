@@ -10,12 +10,19 @@ fn generate(alphabet: Option<Bound<PyString>>, size: Option<usize>) -> PyResult<
         None => "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-".to_string(),
     };
     let size = size.unwrap_or(21);
-    let mut rng = StdRng::from_entropy();
-    let alphabet_len = alphabet.chars().count(); // rather than using .len() - in UTF8 one char might be more than one byte
+    let mut alphabet_vec = Vec::with_capacity(size); // Not sure what size this should be but this
+                                                     // should guarantee no reallocs
+    let mut alphabet_len = 0;
+    for char in alphabet.chars() {
+        alphabet_vec.push(char);
+        alphabet_len += 1;
+    }
     let mut nanoid = String::with_capacity(size);
+    let uniform = Uniform::new(0, alphabet_len);
+    let mut rng = StdRng::from_entropy();
     for _ in 0..size {
-        let i = rng.sample(Uniform::new(0, alphabet_len));
-        nanoid.push(alphabet.chars().nth(i).unwrap());
+        let i = rng.sample(uniform);
+        nanoid.push(alphabet_vec[i]);
     }
     Ok(nanoid)
 }
