@@ -11,8 +11,7 @@ fn generate(alphabet: Option<&str>, size: Option<usize>) -> PyResult<String> {
         None => "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-".to_string(),
     };
     let size = size.unwrap_or(21);
-    let mut alphabet_vec = Vec::with_capacity(size); // Not sure what size this should be but this
-                                                     // should guarantee no reallocs
+    let mut alphabet_vec = Vec::with_capacity(alphabet.chars().count());
 
     let mut alphabet_len = 0;
     for char in alphabet.chars() {
