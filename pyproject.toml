@@ -8,7 +8,7 @@ description = "A tiny, secure URL-friendly, and fast unique string ID generator 
 readme = "README.md"
 authors = [
     { name = "Oliver Lambson", email = "oliverlambson@gmail.com" },
-    { name = "Ochir Erkhembayar" },
+    { name = "Ochir Erkhembayar", email = "oliverlambson@gmail.com" },
 ]
 maintainers = [{ name = "Oliver Lambson", email = "oliverlambson@gmail.com" }]
 license = { file = "LICENSE" }
