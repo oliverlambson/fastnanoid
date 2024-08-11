@@ -7,13 +7,11 @@ name = "fastnanoid"
 description = "A tiny, secure URL-friendly, and fast unique string ID generator for Python, written in Rust."
 readme = "README.md"
 authors = [
-  {name = "Oliver Lambson", email = "oliverlambson@gmail.com"},
-  {name = "Ochir Erkhembayar"},
+    { name = "Oliver Lambson", email = "oliverlambson@gmail.com" },
+    { name = "Ochir Erkhembayar" },
 ]
-maintainers = [
-  {name = "Oliver Lambson", email = "oliverlambson@gmail.com"},
-]
-license = {file = "LICENSE"}
+maintainers = [{ name = "Oliver Lambson", email = "oliverlambson@gmail.com" }]
+license = { file = "LICENSE" }
 requires-python = ">=3.8"
 keywords = ["nanoid"]
 classifiers = [
@@ -43,3 +41,18 @@ Issues = "https://github.com/oliverlambson/fastnanoid/issues"
 features = ["pyo3/extension-module"]
 python-source = "python"
 module-name = "fastnanoid.fastnanoid"
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
+testpaths = ["python", "benchmarks", "tests"]
+
+[tool.mypy]
+files = ["python/**/*.py", "benchmarks/**/*.py", "tests/**/*.py"]
+
+[tool.ruff]
+include = [
+    "pyproject.toml",
+    "python/**/*.py",
+    "benchmarks/**/*.py",
+    "tests/**/*.py",
+]
