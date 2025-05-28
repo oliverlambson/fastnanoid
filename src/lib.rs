@@ -46,8 +46,22 @@ mod tests {
     }
 
     #[rstest]
-    fn choosing_an_alphabet_does_not_affect_default_size() {
-        assert_eq!(generate(Some(ALPHABET_EXAMPLE), None).unwrap().chars().count(), 21);
+    fn chosen_alphabet_is_respected() {
+        let id = generate(Some(ALPHABET_EXAMPLE), None).unwrap();
+        for char in id.chars() {
+            if !ALPHABET_EXAMPLE.contains(char) {
+                panic!("\"{}\" char was not expected because it is not present in the given alphabet", char);
+            }
+        }
+    }
+
+    #[rstest]
+    #[case(None)] // default
+    #[case(Some(11))]
+    #[case(Some(12))]
+    #[case(Some(13))]
+    fn choosing_an_alphabet_does_not_affect_size(#[case] size: Option<usize>) {
+        assert_eq!(generate(Some(ALPHABET_EXAMPLE), size).unwrap().chars().count(), size.unwrap_or(21));
     }
 
     #[rstest]
