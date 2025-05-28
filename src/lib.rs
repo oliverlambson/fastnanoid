@@ -1,14 +1,16 @@
 use pyo3::prelude::*;
 use rand::{distributions::Uniform, rngs::StdRng, Rng, SeedableRng};
 
+const DEFAULT_ALPHABET: &'static str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-";
+
 /// Generates a nanoid string.
 /// this is a drop in replacement for py-nanoid's nanoid.generate() function.
 #[pyfunction]
-#[pyo3(signature = (alphabet="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-", size=21))]
+#[pyo3(signature = (alphabet=DEFAULT_ALPHABET, size=21))]
 fn generate(alphabet: Option<&str>, size: Option<usize>) -> PyResult<String> {
     let alphabet = match alphabet {
         Some(alphabet) => alphabet.to_string(),
-        None => "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-".to_string(),
+        None => DEFAULT_ALPHABET.to_string(),
     };
     let size = size.unwrap_or(21);
 
