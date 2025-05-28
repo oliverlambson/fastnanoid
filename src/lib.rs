@@ -11,13 +11,10 @@ fn generate(alphabet: Option<&str>, size: Option<usize>) -> PyResult<String> {
         None => "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-".to_string(),
     };
     let size = size.unwrap_or(21);
-    let mut alphabet_vec = Vec::with_capacity(alphabet.chars().count());
 
-    let mut alphabet_len = 0;
-    for char in alphabet.chars() {
-        alphabet_vec.push(char);
-        alphabet_len += 1;
-    }
+    let alphabet_vec: Vec<char> = alphabet.chars().collect();
+    let alphabet_len = alphabet.chars().count();
+
     let mut nanoid = String::with_capacity(size);
     let uniform = Uniform::new(0, alphabet_len);
     let mut rng = StdRng::from_entropy();
