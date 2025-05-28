@@ -38,22 +38,46 @@ fn fastnanoid(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rstest::*;
+
+    const ALPHABET_EXAMPLE: &'static str = "asdf🌍";
+
+    #[rstest]
+    #[case(None)]
+    #[case(Some(ALPHABET_EXAMPLE))]
+    fn id_generated_with_both_default_values_is_21_chars_long(#[case] alphabet: Option<&str>) {
+        assert_eq!(generate(alphabet, None).unwrap().chars().count(), 21);
+    }
+
+    #[rstest]
+    fn choosing_an_alphabet_does_not_affect_default_size() {
+        assert_eq!(generate(Some(ALPHABET_EXAMPLE), None).unwrap().chars().count(), 21);
+    }
+
+    #[rstest]
+    #[case(11)]
+    #[case(12)]
+    #[case(13)]
+    fn generated_id_length_can_be_chosen(#[case] size: usize) {
+        assert_eq!(generate(None, Some(size)).unwrap().chars().count(), size);
+    }
+
 
     #[test]
-    fn test() {
+    fn it_works_in_python() {
         pyo3::prepare_freethreaded_python();
         Python::with_gil(|_| {
             assert_eq!(generate(None, None).unwrap().chars().count(), 21);
             assert_eq!(generate(None, Some(11)).unwrap().chars().count(), 11);
             assert_eq!(
-                generate(Some("asdf🌍"), None)
+                generate(Some(ALPHABET_EXAMPLE), None)
                     .unwrap()
                     .chars()
                     .count(),
                 21
             );
             assert_eq!(
-                generate(Some("asdf🌍"), Some(11))
+                generate(Some(ALPHABET_EXAMPLE), Some(11))
                     .unwrap()
                     .chars()
                     .count(),
