@@ -46,14 +46,14 @@ mod tests {
             assert_eq!(generate(None, None).unwrap().chars().count(), 21);
             assert_eq!(generate(None, Some(11)).unwrap().chars().count(), 11);
             assert_eq!(
-                generate(Some("asdf🌍".to_string()), None)
+                generate(Some("asdf🌍"), None)
                     .unwrap()
                     .chars()
                     .count(),
                 21
             );
             assert_eq!(
-                generate(Some("asdf🌍".to_string()), Some(11))
+                generate(Some("asdf🌍"), Some(11))
                     .unwrap()
                     .chars()
                     .count(),
