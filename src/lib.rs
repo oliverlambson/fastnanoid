@@ -8,10 +8,7 @@ const DEFAULT_ALPHABET: &'static str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcd
 #[pyfunction]
 #[pyo3(signature = (alphabet=DEFAULT_ALPHABET, size=21))]
 fn generate(alphabet: Option<&str>, size: Option<usize>) -> PyResult<String> {
-    let alphabet = match alphabet {
-        Some(alphabet) => alphabet.to_string(),
-        None => DEFAULT_ALPHABET.to_string(),
-    };
+    let alphabet = alphabet.unwrap_or(DEFAULT_ALPHABET).to_string();
     let size = size.unwrap_or(21);
 
     let alphabet_vec: Vec<char> = alphabet.chars().collect();
